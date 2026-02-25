@@ -1,3 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karunya V | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ===== Animated Gradient Background ===== */
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#00f2ff);
+    background-size:400% 400%;
+    animation:gradient 12s ease infinite;
+    z-index:-3;
+}
+
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ===== Floating Particles ===== */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-2;
+}
+
+/* ===== Navbar ===== */
+nav{
+    position:fixed;
+    width:100%;
+    top:0;
+    display:flex;
+    justify-content:space-between;
+    padding:20px 60px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+nav h2{
+    font-weight:600;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#00f2ff;
+}
+
+/* ===== Sections ===== */
+section{
+    padding:120px 10%;
+    min-height:100vh;
+}
+
+.hero{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.hero h1{
+    font-size:55px;
+}
+
+.hero span{
+    color:#00f2ff;
+}
+
+.hero p{
+    margin-top:20px;
+    font-size:20px;
+    max-width:600px;
+}
+
+.btn{
+    margin-top:30px;
+    padding:14px 30px;
+    border:none;
+    border-radius:30px;
+    background:#00f2ff;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.btn:hover{
+    transform:scale(1.1);
+}
+
+/* ===== Glass Cards ===== */
+.card{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:30px;
+    border-radius:20px;
+    margin-top:30px;
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+h2{
+    margin-bottom:40px;
+    font-size:36px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:rgba(0,0,0,0.5);
+}
+
+@media(max-width:768px){
+    nav{
+        padding:15px 20px;
+    }
+    .hero h1{
+        font-size:32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+    <h2>Karunya V</h2>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>Hello, I'm <span>Karunya V</span></h1>
+    <p>Electronics and Communication Engineering student passionate about AI, IoT and building impactful tech solutions.</p>
+    <button class="btn" onclick="document.getElementById('projects').scrollIntoView()">Explore Projects</button>
+</section>
+
+<section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+        Electronics and Communication Engineering student with strong interest in programming,
+        AI, IoT and problem solving. Skilled in C, C++, Python, SQL, Canva and Figma.
+    </div>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="grid">
+        <div class="card">C / C++</div>
+        <div class="card">Python & SQL</div>
+        <div class="card">IoT & Arduino</div>
+        <div class="card">UI/UX Design</div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Gesture Vocalizer</h3>
+            <p>Sign language to speech system using image processing.</p>
+        </div>
+        <div class="card">
+            <h3>RFID Tracking System</h3>
+            <p>Arduino-based secure authentication system.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+        <p>Email: karunya246@gmail.com</p>
+        <p>Phone: +91 8778572561</p>
+    </div>
+</section>
+
+<footer>
+    © Karunya V
+</footer>
+
 <script>
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
@@ -5,80 +237,54 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let nodes = [];
-let nodeCount = 90;
-let maxDistance = 120;
+let particlesArray = [];
 
-class Node {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = 2;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.speedY = Math.random() * 0.6 - 0.3;
+class Particle{
+    constructor(){
+        this.x = Math.random()*canvas.width;
+        this.y = Math.random()*canvas.height;
+        this.size = Math.random()*3+1;
+        this.speedX = Math.random()*1-0.5;
+        this.speedY = Math.random()*1-0.5;
     }
-
-    update() {
+    update(){
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        if(this.x<0 || this.x>canvas.width) this.speedX*=-1;
+        if(this.y<0 || this.y>canvas.height) this.speedY*=-1;
     }
-
-    draw() {
+    draw(){
+        ctx.fillStyle="white";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = "#00f2ff";
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
         ctx.fill();
     }
 }
 
-function init() {
-    nodes = [];
-    for (let i = 0; i < nodeCount; i++) {
-        nodes.push(new Node());
+function init(){
+    for(let i=0;i<120;i++){
+        particlesArray.push(new Particle());
     }
 }
 
-function connectNodes() {
-    for (let a = 0; a < nodes.length; a++) {
-        for (let b = a; b < nodes.length; b++) {
-            let dx = nodes[a].x - nodes[b].x;
-            let dy = nodes[a].y - nodes[b].y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < maxDistance) {
-                ctx.strokeStyle = "rgba(0, 242, 255, 0.2)";
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(nodes[a].x, nodes[a].y);
-                ctx.lineTo(nodes[b].x, nodes[b].y);
-                ctx.stroke();
-            }
-        }
-    }
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    nodes.forEach(node => {
-        node.update();
-        node.draw();
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particlesArray.forEach(p=>{
+        p.update();
+        p.draw();
     });
-
-    connectNodes();
-
     requestAnimationFrame(animate);
 }
 
 init();
 animate();
 
-window.addEventListener("resize", () => {
+window.addEventListener("resize",()=>{
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    init();
 });
 </script>
+
+</body>
+</html>
