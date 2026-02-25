@@ -1,252 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karunya V | Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    scroll-behavior:smooth;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color:white;
-}
-
-nav{
-    position:fixed;
-    width:100%;
-    top:0;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(10px);
-    display:flex;
-    justify-content:space-between;
-    padding:15px 50px;
-    z-index:1000;
-}
-
-nav h2{
-    font-weight:600;
-}
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
-}
-
-nav ul li a{
-    text-decoration:none;
-    color:white;
-    transition:0.3s;
-}
-
-nav ul li a:hover{
-    color:#00f2ff;
-}
-
-section{
-    padding:100px 10%;
-    min-height:100vh;
-}
-
-.hero{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.hero h1{
-    font-size:48px;
-}
-
-.hero span{
-    color:#00f2ff;
-}
-
-.hero p{
-    margin-top:15px;
-    font-size:18px;
-}
-
-.btn{
-    margin-top:25px;
-    padding:12px 25px;
-    background:#00f2ff;
-    color:black;
-    border:none;
-    border-radius:25px;
-    cursor:pointer;
-    font-weight:600;
-    transition:0.3s;
-}
-
-.btn:hover{
-    transform:scale(1.1);
-}
-
-.card{
-    background:rgba(255,255,255,0.1);
-    padding:25px;
-    border-radius:15px;
-    margin-top:25px;
-    transition:0.4s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-}
-
-.skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
-}
-
-.progress{
-    background:rgba(255,255,255,0.2);
-    border-radius:20px;
-    overflow:hidden;
-    margin-top:10px;
-}
-
-.progress-bar{
-    height:10px;
-    width:0;
-    background:#00f2ff;
-    transition:1s;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    background:black;
-}
-
-@media(max-width:768px){
-    nav{
-        padding:15px 20px;
-    }
-    .hero h1{
-        font-size:32px;
-    }
-}
-
-</style>
-</head>
-<body>
-
-<nav>
-    <h2>Karunya V</h2>
-    <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
-
-<section class="hero">
-    <h1>Hello, I'm <span>Karunya V</span></h1>
-    <p>Electronics and Communication Engineering Student passionate about AI, IoT and Problem Solving.</p>
-    <button class="btn" onclick="scrollToSection('projects')">View Projects</button>
-</section>
-
-<section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-        <p>
-        Electronics and Communication Engineering student with growing interest in technology,
-        programming and practical learning. Skilled in C, C++, Python and SQL.
-        Proficient in Canva and Figma. Strong communication skills and eager to gain
-        industry exposure while continuously upskilling.
-        </p>
-    </div>
-</section>
-
-<section id="education">
-    <h2>Education</h2>
-    <div class="card">
-        <h3>RMK Engineering College (2023–2027)</h3>
-        <p>CGPA: 7.64 (5th Sem)</p>
-    </div>
-    <div class="card">
-        <h3>Trinity Academy Matriculation HSC (2022–2023)</h3>
-        <p>Percentage: 83%</p>
-    </div>
-</section>
-
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-        <div class="card">
-            <h3>Programming</h3>
-            <p>C / C++ / Python / SQL</p>
-            <div class="progress"><div class="progress-bar" data-width="85%"></div></div>
-        </div>
-        <div class="card">
-            <h3>Design</h3>
-            <p>Canva / Figma</p>
-            <div class="progress"><div class="progress-bar" data-width="75%"></div></div>
-        </div>
-        <div class="card">
-            <h3>Problem Solving</h3>
-            <div class="progress"><div class="progress-bar" data-width="90%"></div></div>
-        </div>
-    </div>
-</section>
-
-<section id="projects">
-    <h2>Projects</h2>
-    <div class="card">
-        <h3>Gesture Vocalizer</h3>
-        <p>Sign language to speech conversion system using image processing.</p>
-    </div>
-    <div class="card">
-        <h3>RFID Based Student ID Tracking</h3>
-        <p>Arduino-based RFID system for secure authentication and tracking.</p>
-    </div>
-</section>
-
-<section id="contact">
-    <h2>Contact Me</h2>
-    <div class="card">
-        <p>Email: karunya246@gmail.com</p>
-        <p>Phone: +91 8778572561</p>
-        <button class="btn">Download Resume</button>
-    </div>
-</section>
-
-<footer>
-    © Karunya V | All Rights Reserved
-</footer>
-
 <script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
-function scrollToSection(id){
-    document.getElementById(id).scrollIntoView({behavior:"smooth"});
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let nodes = [];
+let nodeCount = 90;
+let maxDistance = 120;
+
+class Node {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = 2;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = "#00f2ff";
+        ctx.fill();
+    }
 }
 
-const bars = document.querySelectorAll('.progress-bar');
+function init() {
+    nodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push(new Node());
+    }
+}
 
-window.addEventListener('scroll',()=>{
-    bars.forEach(bar=>{
-        const rect = bar.getBoundingClientRect();
-        if(rect.top < window.innerHeight){
-            bar.style.width = bar.getAttribute('data-width');
+function connectNodes() {
+    for (let a = 0; a < nodes.length; a++) {
+        for (let b = a; b < nodes.length; b++) {
+            let dx = nodes[a].x - nodes[b].x;
+            let dy = nodes[a].y - nodes[b].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < maxDistance) {
+                ctx.strokeStyle = "rgba(0, 242, 255, 0.2)";
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(nodes[a].x, nodes[a].y);
+                ctx.lineTo(nodes[b].x, nodes[b].y);
+                ctx.stroke();
+            }
         }
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    nodes.forEach(node => {
+        node.update();
+        node.draw();
     });
+
+    connectNodes();
+
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
 });
-
 </script>
-
-</body>
-</html>
