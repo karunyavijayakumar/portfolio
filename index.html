@@ -41,7 +41,7 @@ body::before{
     100%{background-position:0% 50%;}
 }
 
-/* ===== Floating Particles ===== */
+/* ===== Canvas ===== */
 canvas{
     position:fixed;
     top:0;
@@ -109,7 +109,7 @@ section{
 }
 
 .btn{
-    margin-top:30px;
+    margin-top:20px;
     padding:14px 30px;
     border:none;
     border-radius:30px;
@@ -122,6 +122,23 @@ section{
 
 .btn:hover{
     transform:scale(1.1);
+}
+
+.btn-secondary{
+    margin-top:15px;
+    padding:14px 30px;
+    border:2px solid #00f2ff;
+    border-radius:30px;
+    background:transparent;
+    color:#00f2ff;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.btn-secondary:hover{
+    background:#00f2ff;
+    color:black;
 }
 
 /* ===== Glass Cards ===== */
@@ -177,13 +194,19 @@ footer{
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="https://github.com/karunyavijayakumar" target="_blank">GitHub</a></li>
     </ul>
 </nav>
 
 <section class="hero">
     <h1>Hello, I'm <span>Karunya V</span></h1>
     <p>Electronics and Communication Engineering student passionate about AI, IoT and building impactful tech solutions.</p>
+    
     <button class="btn" onclick="document.getElementById('projects').scrollIntoView()">Explore Projects</button>
+
+    <a href="https://github.com/karunyavijayakumar" target="_blank">
+        <button class="btn-secondary">View My GitHub</button>
+    </a>
 </section>
 
 <section id="about">
@@ -223,7 +246,12 @@ footer{
     <div class="card">
         <p>Email: karunya246@gmail.com</p>
         <p>Phone: +91 8778572561</p>
-        <p> https://github.com/karunyavijayakumar</p>
+        <p>
+            GitHub: 
+            <a href="https://github.com/karunyavijayakumar" target="_blank" style="color:#00f2ff;">
+                github.com/karunyavijayakumar
+            </a>
+        </p>
     </div>
 </section>
 
@@ -238,56 +266,82 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let particlesArray = [];
+let nodes = [];
+let nodeCount = 90;
+let maxDistance = 120;
 
-class Particle{
-    constructor(){
-        this.x = Math.random()*canvas.width;
-        this.y = Math.random()*canvas.height;
-        this.size = Math.random()*3+1;
-        this.speedX = Math.random()*1-0.5;
-        this.speedY = Math.random()*1-0.5;
+class Node {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = 2;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
     }
-    update(){
+
+    update() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if(this.x<0 || this.x>canvas.width) this.speedX*=-1;
-        if(this.y<0 || this.y>canvas.height) this.speedY*=-1;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
     }
-    draw(){
-        ctx.fillStyle="white";
+
+    draw() {
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = "#00f2ff";
         ctx.fill();
     }
 }
 
-function init(){
-    for(let i=0;i<120;i++){
-        particlesArray.push(new Particle());
+function init() {
+    nodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+        nodes.push(new Node());
     }
 }
 
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particlesArray.forEach(p=>{
-        p.update();
-        p.draw();
+function connectNodes() {
+    for (let a = 0; a < nodes.length; a++) {
+        for (let b = a; b < nodes.length; b++) {
+            let dx = nodes[a].x - nodes[b].x;
+            let dy = nodes[a].y - nodes[b].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < maxDistance) {
+                ctx.strokeStyle = "rgba(0, 242, 255, 0.2)";
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(nodes[a].x, nodes[a].y);
+                ctx.lineTo(nodes[b].x, nodes[b].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    nodes.forEach(node => {
+        node.update();
+        node.draw();
     });
+
+    connectNodes();
     requestAnimationFrame(animate);
 }
 
 init();
 animate();
 
-window.addEventListener("resize",()=>{
+window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    init();
 });
 </script>
 
 </body>
 </html>
-
-
