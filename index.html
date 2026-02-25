@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Karunya V | Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -57,7 +57,7 @@ nav{
     display:flex;
     justify-content:space-between;
     padding:20px 60px;
-    background:rgba(255,255,255,0.08);
+    background:rgba(0,0,0,0.4);
     backdrop-filter:blur(10px);
     z-index:1000;
 }
@@ -124,31 +124,15 @@ section{
     transform:scale(1.1);
 }
 
-.btn-secondary{
-    margin-top:15px;
-    padding:14px 30px;
-    border:2px solid #00f2ff;
-    border-radius:30px;
-    background:transparent;
-    color:#00f2ff;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.4s;
-}
-
-.btn-secondary:hover{
-    background:#00f2ff;
-    color:black;
-}
-
 /* ===== Glass Cards ===== */
 .card{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(15px);
-    padding:30px;
+    background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(20px);
+    padding:35px;
     border-radius:20px;
     margin-top:30px;
     transition:0.4s;
+    border:1px solid rgba(255,255,255,0.08);
 }
 
 .card:hover{
@@ -161,11 +145,26 @@ section{
     gap:30px;
 }
 
+/* ===== Headings ===== */
 h2{
     margin-bottom:40px;
-    font-size:36px;
+    font-size:38px;
+    font-weight:700;
+    letter-spacing:1px;
 }
 
+/* ===== Enhanced Skills Styling ===== */
+#skills .card{
+    font-family:'Montserrat', sans-serif;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:#ffffff;
+    text-align:center;
+    text-shadow:0 0 8px rgba(0,242,255,0.6);
+}
+
+/* ===== Footer ===== */
 footer{
     text-align:center;
     padding:30px;
@@ -201,10 +200,7 @@ footer{
 <section class="hero">
     <h1>Hello, I'm <span>Karunya V</span></h1>
     <p>Electronics and Communication Engineering student passionate about AI, IoT and building impactful tech solutions.</p>
-    
     <button class="btn" onclick="document.getElementById('projects').scrollIntoView()">Explore Projects</button>
-
-    
 </section>
 
 <section id="about">
@@ -218,9 +214,9 @@ footer{
 <section id="skills">
     <h2>Skills</h2>
     <div class="grid">
-        <div class="card">Programming : C / C++ , Python </div>
+        <div class="card">Programming : C / C++ / Python</div>
         <div class="card">Database : SQL</div>
-        <div class="card">Designing tools : UI/UX using Figma , Canva</div>
+        <div class="card">Designing Tools : UI/UX using Figma & Canva</div>
     </div>
 </section>
 
@@ -229,27 +225,17 @@ footer{
     <div class="grid">
         <div class="card">
             <h3>Gesture Vocalizer</h3>
-            <p>Hand-Gesture Recognition System helps the dumb people finding difficulty
-in communicating with the society. These people give some gestures to
-communicate with the normal people but all the gestures given by the dumb cannot
-be understood. So, there is a need to have some media between the dumb and normal
-people. The system recognizes the gestures given by the dumb and display the
-message on the LCD according to the gesture. The glove with flex sensors is worn
-to the hand of the dumb and when the gesture is given it is sensed by the flex sensor
-then the system recognizes the gesture. Paraplegics are the persons whose body parts
-below the belly will not work and find difficulty in using the appliances. The system
-also consists of an accelerometer controlling the fan and light. The appliances can
-be controlled by tilting the accelerometer. An alert message with the help of a GSM
-can be sent to the concerned person of the paraplegic when the paraplegic is in
-trouble.</p>
+            <p>
+                Hand-Gesture Recognition System that converts sign language into readable output using flex sensors,
+                accelerometer and GSM module. Helps differently-abled individuals communicate and control appliances.
+            </p>
         </div>
         <div class="card">
-            <h3>Smart water quality monitoring system using Iot</h3>
-            <p>Water quality monitoring is essential to ensure safe drinking water and prevent health hazards caused by contamination. Traditional water testing methods rely on manual sample collection and laboratory analysis, which are time-consuming, costly, and unsuitable for continuous monitoring. To overcome these limitations, this project proposes a Smart Water Quality Monitoring System using Internet of Things (IoT) technology.
-
-The system integrates sensors to measure key water quality parameters such as pH, turbidity, temperature, and Total Dissolved Solids (TDS). The collected data is processed using a microcontroller and transmitted wirelessly to a cloud platform for real-time monitoring and analysis. Alerts are generated whenever any parameter exceeds predefined safe limits.
-
-As a future enhancement, the system can be extended to include tank leakage detection using hybrid sensor-based or machine learning approaches to improve water management efficiency. This solution provides a cost-effective, scalable, and reliable method for continuous water quality assessment in residential, industrial, and smart city applications..</p>
+            <h3>Smart Water Quality Monitoring using IoT</h3>
+            <p>
+                IoT-based system measuring pH, turbidity, temperature and TDS.
+                Sends real-time data to cloud platform and generates alerts for unsafe water conditions.
+            </p>
         </div>
     </div>
 </section>
@@ -259,7 +245,7 @@ As a future enhancement, the system can be extended to include tank leakage dete
     <div class="card">
         <p>Email: karunya246@gmail.com</p>
         <p>Phone: +91 8778572561</p>
-         <p>
+        <p>
             LinkedIn: 
             <a href="https://www.linkedin.com/in/karunya-v-4068a62bb/" target="_blank" style="color:#00f2ff;">
                 linkedin.com/in/karunya-v-4068a62bb
@@ -358,7 +344,3 @@ window.addEventListener("resize", () => {
 
 </body>
 </html>
-
-
-
-
