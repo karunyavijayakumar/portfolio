@@ -62,10 +62,6 @@ nav{
     z-index:1000;
 }
 
-nav h2{
-    font-weight:600;
-}
-
 nav ul{
     list-style:none;
     display:flex;
@@ -99,7 +95,8 @@ section{
 }
 
 .hero span{
-    color:#00f2ff;
+    color:#FFD700;
+    text-shadow:0 0 10px rgba(255,215,0,0.7);
 }
 
 .hero p{
@@ -133,6 +130,7 @@ section{
     margin-top:30px;
     transition:0.4s;
     border:1px solid rgba(255,255,255,0.08);
+    cursor:pointer;
 }
 
 .card:hover{
@@ -145,23 +143,49 @@ section{
     gap:30px;
 }
 
-/* ===== Headings ===== */
 h2{
     margin-bottom:40px;
     font-size:38px;
     font-weight:700;
-    letter-spacing:1px;
 }
 
-/* ===== Enhanced Skills Styling ===== */
-#skills .card{
-    font-family:'Montserrat', sans-serif;
-    font-size:20px;
-    font-weight:700;
-    letter-spacing:1px;
-    color:#ffffff;
-    text-align:center;
-    text-shadow:0 0 8px rgba(0,242,255,0.6);
+/* ===== Modal ===== */
+.modal{
+    display:none;
+    position:fixed;
+    z-index:2000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    backdrop-filter:blur(8px);
+}
+
+.modal-content{
+    background:rgba(0,0,0,0.9);
+    margin:8% auto;
+    padding:40px;
+    width:80%;
+    max-width:600px;
+    border-radius:20px;
+    color:white;
+    position:relative;
+    animation:popup 0.4s ease;
+}
+
+@keyframes popup{
+    from{transform:scale(0.7); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+.close{
+    position:absolute;
+    top:15px;
+    right:25px;
+    font-size:28px;
+    cursor:pointer;
+    color:#00f2ff;
 }
 
 /* ===== Footer ===== */
@@ -193,7 +217,6 @@ footer{
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="https://github.com/karunyavijayakumar" target="_blank">GitHub</a></li>
     </ul>
 </nav>
 
@@ -203,153 +226,75 @@ footer{
     <button class="btn" onclick="document.getElementById('projects').scrollIntoView()">Explore Projects</button>
 </section>
 
-<section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-        Electronics and Communication Engineering student with a growing interest in technology, programming, and practical learning. Actively developing foundational skills in C and C++ programming, problem solving, and basic SQL through academic coursework and hands-on practice. Can work with Figma and Canva for UI/UX design and visual content creation, and familiar with Microsoft Office for documentation and presentations. Possess good communication skills, adaptability, and a strong willingness to learn new tools and technologies. Motivated to gain industry exposure and continuously upskill for long-term professional growth.
-    </div>
-</section>
-
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="grid">
-        <div class="card">Programming : C / C++ / Python</div>
-        <div class="card">Database : SQL</div>
-        <div class="card">Designing Tools : UI/UX using Figma & Canva</div>
-    </div>
-</section>
-
 <section id="projects">
     <h2>Projects</h2>
     <div class="grid">
-        <div class="card">
+
+        <div class="card" onclick="openModal('gesture')">
             <h3>Gesture Vocalizer</h3>
-            <p>
-                Hand-Gesture Recognition System that converts sign language into readable output using flex sensors,
-                accelerometer and GSM module. Helps differently-abled individuals communicate and control appliances.
-            </p>
+            <p>Hand-Gesture Recognition System...</p>
         </div>
-        <div class="card">
-            <h3>Smart Water Quality Monitoring using IoT</h3>
-            <p>
-                IoT-based system measuring pH, turbidity, temperature and TDS.
-                Sends real-time data to cloud platform and generates alerts for unsafe water conditions.
-            </p>
+
+        <div class="card" onclick="openModal('water')">
+            <h3>Smart Water Quality Monitoring</h3>
+            <p>IoT-based system measuring pH, turbidity...</p>
         </div>
-        <div class="card">
-            <h3>RFID biometric system</h3>
-            <p>
-                This project is to make a real time biometric system for college students and office employee to scan their ID card for attendence
-            </p>
+
+        <div class="card" onclick="openModal('rfid')">
+            <h3>RFID Biometric System</h3>
+            <p>Real-time attendance using RFID cards...</p>
         </div>
+
     </div>
 </section>
 
-<section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-        <p>Email: karunya246@gmail.com</p>
-        <p>Phone: +91 8778572561</p>
-        <p>
-            LinkedIn: 
-            <a href="https://www.linkedin.com/in/karunya-v-4068a62bb/" target="_blank" style="color:#00f2ff;">
-                linkedin.com/in/karunya-v-4068a62bb
-            </a>
-        </p>
+<!-- Modal -->
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
     </div>
-</section>
+</div>
 
 <footer>
     © Karunya V
 </footer>
 
 <script>
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+function openModal(project){
+    const title = document.getElementById("modalTitle");
+    const desc = document.getElementById("modalDescription");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let nodes = [];
-let nodeCount = 90;
-let maxDistance = 120;
-
-class Node {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = 2;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.speedY = Math.random() * 0.6 - 0.3;
+    if(project === "gesture"){
+        title.innerText = "Gesture Vocalizer";
+        desc.innerText = "Uses flex sensors and accelerometer to detect hand gestures and convert them into text or speech. Helps differently-abled individuals communicate. Integrated GSM module for remote communication.";
     }
 
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    if(project === "water"){
+        title.innerText = "Smart Water Quality Monitoring using IoT";
+        desc.innerText = "Measures pH, turbidity, temperature and TDS using sensors. Sends real-time data to cloud via WiFi. Generates alerts when parameters exceed safe thresholds.";
     }
 
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = "#00f2ff";
-        ctx.fill();
+    if(project === "rfid"){
+        title.innerText = "RFID Biometric System";
+        desc.innerText = "Implements RFID-based attendance system where users scan ID cards. Attendance data stored in database for easy monitoring and reporting.";
     }
+
+    document.getElementById("projectModal").style.display = "block";
 }
 
-function init() {
-    nodes = [];
-    for (let i = 0; i < nodeCount; i++) {
-        nodes.push(new Node());
+function closeModal(){
+    document.getElementById("projectModal").style.display = "none";
+}
+
+window.onclick = function(event){
+    const modal = document.getElementById("projectModal");
+    if(event.target === modal){
+        modal.style.display = "none";
     }
 }
-
-function connectNodes() {
-    for (let a = 0; a < nodes.length; a++) {
-        for (let b = a; b < nodes.length; b++) {
-            let dx = nodes[a].x - nodes[b].x;
-            let dy = nodes[a].y - nodes[b].y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < maxDistance) {
-                ctx.strokeStyle = "rgba(0, 242, 255, 0.2)";
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(nodes[a].x, nodes[a].y);
-                ctx.lineTo(nodes[b].x, nodes[b].y);
-                ctx.stroke();
-            }
-        }
-    }
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    nodes.forEach(node => {
-        node.update();
-        node.draw();
-    });
-
-    connectNodes();
-    requestAnimationFrame(animate);
-}
-
-init();
-animate();
-
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    init();
-});
 </script>
 
 </body>
-
-    
-
-
-
+</html>
